@@ -54,7 +54,7 @@ void SimpleGCTGifEncoder::release() {
 
 	if (NULL != lastColorReducedPixels) {
 		delete[] lastColorReducedPixels;
-		lastPixels = NULL;
+		lastColorReducedPixels = NULL;
 	}
 
 	if (NULL != fp) {
@@ -258,7 +258,7 @@ bool SimpleGCTGifEncoder::writeGraphicControlExt(uint16_t delay)
 
 	uint8_t packed = (disposalMethod << 2) | (userInputFlag << 1) | transparencyFlag;
 	//                                                     size, packed, delay(2), transIndex, terminator
-	const uint8_t graphicControlExt[] = {0x21, 0xF9, 0x04, packed, delay & 0xFF, (delay >> 8), 0xFF, 0x00};
+	const uint8_t graphicControlExt[] = {0x21, 0xF9, 0x04, packed, static_cast<uint8_t>(delay & 0xFF), static_cast<uint8_t>((delay >> 8)), 0xFF, 0x00};
 	fwrite(graphicControlExt, sizeof(graphicControlExt), 1, fp);
 	return true;
 }

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <stdint.h>
+#import <stdio.h>
+
 struct EncodeRect {
 	int32_t x;
 	int32_t y;
